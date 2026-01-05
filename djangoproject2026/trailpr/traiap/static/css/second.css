@@ -1,0 +1,109 @@
+/* Printer Hero Styling */
+.printer-hero {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 10%;
+    min-height: 500px;
+}
+
+.printer-content h2 {
+    font-size: 3rem;
+    max-width: 500px;
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.sub-heading {
+    color: #888;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+.btn-red {
+    background-color: #E31212;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.printer-image img {
+    max-width: 500px;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+}
+
+/* Category Selector Styling */
+.category-selector {
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #333;
+}
+
+.cat-item {
+    padding: 30px 60px;
+    text-align: center;
+    color: #888;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cat-item.active {
+    background-color: #2a2a2a;
+    color: #fff;
+    border-bottom: 3px solid #cc0000;
+}
+
+/* Featured Products Styling */
+.featured-products {
+    background-color: #000;
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.section-title {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.product-card img {
+    width: 80%;
+    margin: 0 auto;
+    transition: transform 0.5s;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-card h3 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-top: 20px;
+    text-align: left;
+}

@@ -1,0 +1,42 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+<title> hero </title>
+
+{% endblock title %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/hero.css'  %}">
+
+
+{% endblock css %}
+
+{% block content %}
+
+
+<div class="site-container">
+    <main class="middle-content">
+        <section class="hero-section">
+            <div class="hero-overlay">
+                <p class="brand-line">Captured on Canon</p>
+                <h1 class="hero-title">
+                    <span class="red-text">ADMIRE TODAY.</span><br>
+                    PROTECT EVERY DAY.
+                </h1>
+                <p class="hero-subtext">
+                    Because nature deserves more than just one day of attention.
+                </p>
+            </div>
+            <div class="hero-hashtag">#NationalBirdDay</div>
+        </section>
+        
+        </main>
+</div>
+
+
+
+{% endblock content %}
