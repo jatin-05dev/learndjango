@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 
 def hero(req):
-    return render(req,'Hero.html')
+    return render(req,'hero.html')
 
 def second(req):
     return render(req,'second.html')

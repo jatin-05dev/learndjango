@@ -1,0 +1,127 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Online Shopping site in India{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/Base.css' %}">
+</head>
+<body><header>
+        <nav class="navbar">
+            <div class="nav-logo border">
+                <div class="logo">amazon.in</div>
+            </div>
+
+            <div class="nav-address border">
+                <p class="add-first">Deliver to Jatin</p>
+                <div class="add-icon">
+                    <span class="location-icon">📍</span>
+                    <p class="add-second">Bhopal 462022</p>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                </select>
+                <input placeholder="Search Amazon.in" class="search-input">
+                <div class="search-icon-container">
+                    <span class="search-glass">🔍</span>
+                </div>
+            </div>
+
+            <div class="nav-lang border">
+                <span class="flag">🇮🇳</span>
+                <span class="lang-text">EN</span>
+                <span class="arrow">▼</span>
+            </div>
+
+            <div class="nav-signin border">
+                <p class="line-1">Hello, Jatin</p>
+                <p class="line-2">Account & Lists <span class="arrow">▼</span></p>
+            </div>
+
+            <div class="nav-return border">
+                <p class="line-1">Returns</p>
+                <p class="line-2">& Orders</p>
+            </div>
+
+            <div class="nav-cart border">
+                <div class="cart-icon-box">
+                    <span class="cart-count">3</span>
+                    <span class="cart-icon">🛒</span>
+                </div>
+                <p class="cart-text">Cart</p>
+            </div>
+        </nav>
+
+        <div class="panel">
+            <div class="panel-all border">
+                <span>☰ All</span>
+            </div>
+            <div class="panel-ops">
+                <p class="border"><span class="rufus-badge">● Rufus</span></p>
+                <p class="border">Buy Again</p>
+                <p class="border">Mobiles</p>
+                <p class="border">Today's Deals</p>
+                <p class="border">MX Player</p>
+                <p class="border">Sell</p>
+                <p class="border">Gift Cards</p>
+                <p class="border">Amazon Pay</p>
+            </div>
+            <div class="panel-prime border">
+                Prime <span class="arrow">▼</span>
+            </div>
+        </div>
+    </header>
+
+    
+    
+        {% block content %}{% endblock %}
+
+
+    <footer class="amazon-footer">
+        <div class="back-to-top">Back to top</div>
+
+        <div class="footer-links-wrapper">
+            <div class="footer-column">
+                <h3>Get to Know Us</h3>
+                <ul><li>About Us</li><li>Careers</li><li>Press Releases</li></ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect with Us</h3>
+                <ul><li>Facebook</li><li>Twitter</li><li>Instagram</li></ul>
+            </div>
+            <div class="footer-column">
+                <h3>Make Money with Us</h3>
+                <ul><li>Sell on Amazon</li><li>Become an Affiliate</li></ul>
+            </div>
+            <div class="footer-column">
+                <h3>Let Us Help You</h3>
+                <ul><li>Your Account</li><li>Returns Centre</li><li>Help</li></ul>
+            </div>
+        </div>
+
+        <div class="footer-mid">
+            <div class="logo" style="width: 80px;"></div>
+            <div class="lang-select" style="border: 1px solid #848688; padding: 5px 10px; border-radius: 3px; font-size: 12px;">
+                <i class="fa-solid fa-globe"></i> English
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="services-grid">
+                <div class="service-item"><h4>AbeBooks</h4><p>Books, art & collectibles</p></div>
+                <div class="service-item"><h4>Amazon Web Services</h4><p>Scalable Cloud Computing</p></div>
+                <div class="service-item"><h4>Audible</h4><p>Download Audio Books</p></div>
+                <div class="service-item"><h4>IMDb</h4><p>Movies, TV & Celebrities</p></div>
+            </div>
+            <div class="footer-legal">
+                <span>Conditions of Use & Sale &nbsp; Privacy Notice &nbsp; Interest-Based Ads</span>
+                <p>© 1996-2025, Amazon.com, Inc. or its affiliates</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -22,5 +22,4 @@ urlpatterns = [
     path('hero/', views.hero,name='hero.html'),
     path('second/', views.second,name='second.html'),
 
-
 ]
