@@ -10,3 +10,5 @@ def hero(req):
 
 def second(req):
     return render(req,'second.html')
+def career(req):
+    return render(req,'career.html')
