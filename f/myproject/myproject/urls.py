@@ -1,5 +1,5 @@
 """
-URL configuration for trailproject project.
+URL configuration for myproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -16,17 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from trailapp import views
+from myapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('landing/',views.landing,name='landing'),
-    path('my_for/',views.my_for,name='my_for'),
-    path('hero/',views.hero,name='hero'),
-    path('ex/',views.ex,name='ex'),
+    path('',views.landin,name='landin'),
+    path('data',views.data,name='data'),
 
 
-
+     
 
 
 ]

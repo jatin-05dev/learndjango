@@ -51,17 +51,39 @@
 
     
 
+<br>
+    <h1>dtl tags</h1>
 
+    {% if data %}
+    all data are :{{data}}     
+    {% endif %}
 
-
-
-
-
-
-
-
-
-
+ 
     
+ <br>
+
+ {% if data.l2 %}
+  {% for i in data.l2 %}
+
+    {{i}}
+  
+  {% endfor %}
+ {% endif %}
+
+{% block content %}
+
+{% endblock content %}
+
+
+
+
+
+  {% with local_var='jatin' %}
+{{local_var}}
+{{local_var}}
+{% endwith %}
+
+{{local_var}}
+
  </body>
  </html>
