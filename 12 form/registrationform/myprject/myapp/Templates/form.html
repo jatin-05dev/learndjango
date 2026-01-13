@@ -45,7 +45,7 @@
     <div class="card shadow-lg p-4">
         <h3 class="text-center mb-4">Registration Form</h3>
 
-        <form action="{% url 'data' %}" method="" enctype="multipart/form-data">
+        <form action="{% url 'data' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -119,7 +119,7 @@
                 <input type="file" name="Document" class="form-control" accept=".pdf,.doc,.csv">
             </div>
 
-            <div class="mb-3">
+            {% comment %} <div class="mb-3">
                 <label class="form-label">Audio</label>
                 <input type="file" class="form-control" accept=".mp3">
             </div>
@@ -127,7 +127,7 @@
             <div class="mb-3">
                 <label class="form-label">Video</label>
                 <input type="file" class="form-control" accept=".mp4">
-            </div>
+            </div> {% endcomment %}
 
             <div class="d-grid mt-4">
                 <button type="submit" class="btn btn-primary btn-lg">
