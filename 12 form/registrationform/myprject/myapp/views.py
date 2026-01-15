@@ -25,7 +25,7 @@ def data(r):
     d=r.FILES.get('Document')
     print(pic)
     print(type(n),type(e),type(tel1),type(tel2),type(q),type(city),type(g),type(pic),sep=" ")
-    Student.objects.create(name=n,email=e,contact=tel1,tel=tel2,quali=q,state=city,gender=g,img=pic,document=d)
+    Student.objects.create(name=n,email=e,contact=tel1,tel=tel2,quali=q,state=city,gender=g,img=pic,Document=d)
 
     # files ke files 
     # get me get wali
