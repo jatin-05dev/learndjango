@@ -44,7 +44,7 @@
 <div class="container mt-5">
     <div class="card shadow-lg p-4">
         <h3 class="text-center mb-4">Registration Form</h3>
-
+       <img src="{{data.img.url}}" alt="">
         <form action="{% url 'data' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
