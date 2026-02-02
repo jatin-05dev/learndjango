@@ -19,9 +19,13 @@ from django.urls import path
 from traiap   import views 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hero/', views.hero,name='hero.html'),
+    path('hero', views.hero,name='hero.html'),
     path('second/', views.second,name='second.html'),
     path('career/', views.career,name='career.html'),
+    path('log/', views.log,name='log'),
+    path('', views.sign,name='sign'),
+
+
 
 
 ]
