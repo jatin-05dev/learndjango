@@ -56,7 +56,27 @@ urlpatterns = [
     path("otp",views.otp,name='otp'),
     path("newpass",views.newpass,name='newpass'),
     path("confirm",views.confirm,name='confirm'),
-    path('resend_otp',views.resend_otp,name="resend_otp")
+    path('resend_otp',views.resend_otp,name="resend_otp"),
+
+
+    # qurey
+
+    path("apply_query",views.apply_query,name='apply_query'),
+    path("submit_query",views.submit_query,name="submit_query"),
+    path("profile",views.profile,name="profile"),
+    path("show_query",views.show_query,name="show_query"),
+    path("a_reply/<int:pk>/",views.a_reply,name="a_reply"),
+    path("reply_query/<int:pk>/",views.reply_query,name="reply_query"),
+    path("pending_query",views.pending_query,name="pending_query"),
+    path("done_query",views.done_query,name="done_query"),
+    path("Edit/<int:pk>/",views.Edit,name="Edit"),
+    path("Edit_query/<int:pk>/",views.Edit_query,name="Edit_query"),
+    path("Del/<int:pk>/",views.Del,name="Del"),
+
+
+    
+
+
 
 
 

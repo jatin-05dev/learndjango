@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
-from myapp.models import dep,emp
+from myapp.models import dep,emp,query
 from django.contrib import messages
 from django.core.mail import send_mail
 import random
-
+from django.views.decorators.cache import never_cache
 # /ad/de/d
 # Create your views here.
+@never_cache
 def landing(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -17,7 +18,7 @@ def landing(req):
         else:
             return render(req,'landing.html')
 
-
+@never_cache
 def login(req):
     if req.method == 'POST':
         e = req.POST.get('email')
@@ -45,6 +46,7 @@ def login(req):
                 return render(req,'login.html',{'data':x})
     return render(req, 'login.html')
 
+@never_cache
 def admindpanel(req):
     # Admin Session Check
     if 'admin_e' in req.session and 'admin_p' in req.session:
@@ -60,7 +62,7 @@ def admindpanel(req):
         return redirect('login')
     
 
-
+@never_cache
 def logout(req):
     if 'admin_e' in req.session:
         req.session.flush()
@@ -145,10 +147,11 @@ def save_department(req):
             if not deptdata:
                 dep.objects.create(dept_name=dname,dept_code=dcode,dept_head=dhead,dept_budget=dbudget,dept_desc=ddesc)
                 messages.success(req,"department added")
-                return redirect("add_department",a_data)
+                return render(req,'admindpanel.html',{'a_data':a_data,'add_department':True})
             else:
                 messages.error(req,"department as already present")
-                return redirect('add_department',a_data)
+                return render(req,'admindpanel.html',{'a_data':a_data,'add_department':True})
+                
     else:
      return redirect('login')
 
@@ -310,7 +313,8 @@ def all_quries(req):
             'password': req.session['admin_p'],
             'name': req.session['admin_n']
         }
-          return render(req,'admindpanel.html', {'data': a_data,"all_quries":True})
+          qdata=query.objects.all()
+          return render(req,'admindpanel.html', {'data': a_data,'qdata':qdata,"all_quries":True})
     else:
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
@@ -442,3 +446,184 @@ def resend_otp(req):
                )
     req.session.set_expiry(60)   # 1 minute
     return redirect('otp')
+
+
+
+# qurry
+def apply_query(req):
+    if 'emp_id' in req.session:
+       emp_id=req.session.get('emp_id')
+       emp_data=emp.objects.get(id=emp_id)
+       data={
+        'fname':emp_data.fname,
+        'email':emp_data.email,
+        'DOB':emp_data.DOB,
+        'gender':emp_data.gender,
+       'mobile':emp_data.mobile,
+      }
+       depd=dep.objects.all()   
+       print(depd)
+       return render(req,'emppanel.html',{'apply_query':True,'data':data,'depd':depd})
+
+def profile(req):
+    if 'emp_id' in req.session:
+       emp_id=req.session.get('emp_id')
+       emp_data=emp.objects.get(id=emp_id)
+       data={
+        'fname':emp_data.fname,
+        'email':emp_data.email,
+        'DOB':emp_data.DOB,
+        'gender':emp_data.gender,
+       'mobile':emp_data.mobile,
+      }
+       depd=dep.objects.all()   
+       print(depd)
+       return render(req,'emppanel.html',{'profile':True,'data':data,'depd':depd})
+    else:
+        return redirect('login')
+
+
+
+
+def submit_query(req):
+    if req.method=='POST':
+        name=req.POST.get('name')
+        email=req.POST.get('email')
+        message=req.POST.get('message')
+        dept=req.POST.get('dept')
+        query.objects.create(Name=name,Email=email,Query=message,department=dept)
+        messages.success(req,'query raised')
+        if 'emp_id' in req.session:
+            emp_id=req.session.get('emp_id')
+            emp_data=emp.objects.get(id=emp_id)
+            data={
+            'fname':emp_data.fname,
+            'email':emp_data.email,
+            'DOB':emp_data.DOB,
+            'gender':emp_data.gender,
+            'mobile':emp_data.mobile,
+         }
+        depd=dep.objects.all()  
+        return render(req,'emppanel.html',{'data':data,'depd':depd,'apply_query':True})
+    return render(req,'emppanel.html',{'data':data,'depd':depd,'apply_query':True})
+
+    
+
+def show_query(req):
+     if 'emp_id' in req.session:
+       emp_id=req.session.get('emp_id')
+       emp_data=emp.objects.get(id=emp_id)
+       data={
+        'fname':emp_data.fname,
+        'email':emp_data.email,
+        'DOB':emp_data.DOB,
+        'gender':emp_data.gender,
+       'mobile':emp_data.mobile,
+      }
+       empe=emp_data.email
+       qdata=query.objects.filter(Email=empe)
+    #    return render(req,'emppanel.html',{'data':data,'show_query':qdata})
+       return render(req,'emppanel.html',{'data':data,'show_query':True,'qdata':qdata})
+
+
+
+def a_reply(req,pk):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+        a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'name': req.session['admin_n']
+        }
+        qdata=query.objects.get(id=pk)
+        return render(req, 'admindpanel.html', {'data': a_data,'qdata':qdata,'a_reply':True})   
+    else:
+        return redirect('login')
+    
+
+def reply_query(req,pk):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+        a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'name': req.session['admin_n']
+        }
+        if req.method=='POST':
+            name=req.POST.get('name')
+            email=req.POST.get('email')
+            Query=req.POST.get('query')
+            department=req.POST.get('department')
+            admin_reply=req.POST.get('admin_reply')
+            qdata=query.objects.get(id=pk)
+            if admin_reply:
+                old_data=query.objects.get(id=pk)
+                old_data.admin_rep=admin_reply
+                old_data.status='done'
+                old_data.save()
+            # return redirect('admindpanel')
+            messages.success(req,"reply successfully")
+            return redirect('all_quries')   
+
+                
+    else:
+        return redirect('login')
+
+
+
+
+def pending_query(req):
+     if 'emp_id' in req.session:
+        emp_id=req.session.get('emp_id')
+        emp_data=emp.objects.get(id=emp_id)
+        data={
+         'fname':emp_data.fname,
+         'email':emp_data.email,
+         'DOB':emp_data.DOB,
+         'gender':emp_data.gender,
+        'mobile':emp_data.mobile,
+        }
+        empe=emp_data.email
+        qdata=query.objects.filter(Email=empe,status="pending")
+       
+        return render(req,'emppanel.html',{'data':data,'pending_query':True,'qdata':qdata})
+
+
+
+def done_query(req):
+     if 'emp_id' in req.session:
+        emp_id=req.session.get('emp_id')
+        emp_data=emp.objects.get(id=emp_id)
+        data={
+         'fname':emp_data.fname,
+         'email':emp_data.email,
+         'DOB':emp_data.DOB,
+         'gender':emp_data.gender,
+        'mobile':emp_data.mobile,
+        }
+        empe=emp_data.email
+        qdata=query.objects.filter(Email=empe,status="done")
+       
+        return render(req,'emppanel.html',{'data':data,'done_query':True,'qdata':qdata})
+
+
+def Edit(req,pk):
+    q=query.objects.get(id=pk)
+    return render(req,"emppanel.html",{'Edit':q})
+
+def Edit_query(req,pk):
+    if req.method=='POST':
+        message=req.POST.get('message')
+        emp=query.objects.get(id=pk)
+        emp.Query=message
+        emp.save()
+        messages.success(req,"Edit successfully")
+        return redirect('pending_query')
+    
+    
+def Del(req,pk):
+    qd=query.objects.get(id=pk)
+    qd.delete()
+    return redirect('pending_query')
+    
+        
+
+

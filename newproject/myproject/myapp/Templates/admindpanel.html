@@ -753,26 +753,135 @@
     {% endif %}
 </div>
 
-{% elif all_quries %}
+{% elif  all_quries %}
 <div class="form-card" style="max-width: 100%;">
-    <h2>All Departments</h2>
+    <h2>All Quries</h2>
+    {% if qdata %}
+    
     <table class="content-table">
         <thead>
             <tr>
-                <th>queries Name</th>
-                <th>HOD</th>
-                <th>Total complain</th>
+                <th>S.no</th>
+                <th>employee Name</th>
+                <th>department</th>
+                <th>query</th>
+                <th>email</th>
+                <th>status</th>
+                <th>admin reply</th>
+                
+
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>IT Department</td>
-                <td>Amit Sharma</td>
-                <td>24</td>
+             <tr>
+            {% for i in qdata %}
+                   <td>{{forloop.counter}}</td>
+                    <td>{{i.Name}}</td>
+                    <td>{{i.department}}</td>
+                    <td>{{i.Query}}</td>
+                    <td>{{i.Email}}</td>
+                    <td>{{i.status}}</td>
+                    {% if i.admin_rep %}
+                    <td>{{i.admin_rep}}</td>
+                    {% else %}
+                    <td><button><a style="text-decoration: none;" href={% url 'a_reply' pk=i.id %}>admin reply</a></button></td>
+                    {% endif %}
             </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+       {% else %}
+       <h1>
+    no quries
+       </h1>
+    {% endif %}
         </tbody>
     </table>
 </div>
+
+
+
+    {% elif a_reply %}
+      <div style="width:600px; margin:40px auto; background:#fff; padding:20px; border-radius:6px; box-shadow:0 0 10px #ccc;">
+
+    <h2 style="text-align:center; margin-bottom:20px;">Admin Reply Panel</h2>
+      {% if messages %}
+  <div class="message-wrapper">
+    {% for i in messages %}
+      <div class="alert alert-{{ i.tags }} alert-dismissible fade show custom-alert"
+           role="alert">
+        <span class="alert-icon">
+          {% if i.tags == 'success' %}
+            ✔
+          {% elif i.tags == 'error' %}
+            ✖
+          {% elif i.tags == 'warning' %}
+            ⚠
+          {% else %}
+            ℹ
+          {% endif %}
+        </span>
+
+        <span class="alert-text">{{ i }}</span>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+    <form method="post"  action="{% url 'reply_query' pk=qdata.id %}">
+    {% csrf_token %}
+        <!-- Name -->
+        <label>Name</label>
+        <input type="text" name="name" value="{{qdata.Name}}" 
+        style="width:100%; padding:8px; margin:6px 0 12px; border:1px solid #ccc; border-radius:4px;" 
+         readonly>
+
+        <!-- Email -->
+        <label>Email</label>
+        
+        <input type="email" name="email" value="{{qdata.Email}}" 
+        style="width:100%; padding:8px; margin:6px 0 12px; border:1px solid #ccc; border-radius:4px;"
+         readonly>
+
+        <!-- Query -->
+        <label>User Query</label>
+        <textarea rows="3" name="query" readonly
+        style="width:100%; padding:8px; margin:6px 0 12px; border:1px solid #ccc; border-radius:4px;">{{qdata.Query}}</textarea>
+
+        <!-- Department -->
+        <label>Department</label>
+        <input type="text" name="department" 
+        style="width:100%; padding:8px; margin:6px 0 12px; border:1px solid #ccc; border-radius:4px;"
+        value="{{qdata.department}}" readonly>
+
+        <!-- Status -->
+        <label>Status</label>
+        <select name="status"
+        style="width:100%; padding:8px; margin:6px 0 12px; border:1px solid #ccc; border-radius:4px;">
+            <option value={{qdata.status}}>{{qdata.status}}</option>
+        </select>
+
+        <!-- Admin Reply -->
+        <label>Admin Reply</label>
+        <textarea name="admin_reply" rows="4" required
+        style="width:100%; padding:8px; margin:6px 0 16px; border:1px solid #ccc; border-radius:4px;"
+        placeholder="Type admin reply here..."></textarea>
+
+        <!-- Button -->
+        <button type="submit"
+        style="width:100%; padding:10px; background:#007bff; color:white; border:none; border-radius:4px; font-size:16px; cursor:pointer;">
+        Send Reply
+        </button>
+    </form>
+
+</div>
+
 
 {% else %}
 <div style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
