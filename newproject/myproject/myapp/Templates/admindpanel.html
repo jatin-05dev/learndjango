@@ -565,50 +565,131 @@
     {% endif %}
 </div>
 
+ 
 {% elif remove_employees %}
 <div class="form-card" style="max-width: 100%;">
-    <h2 style="color: var(--danger);">Remove Employee</h2>
+ {% if messages %}
+  <div class="message-wrapper">
+    {% for i in messages %}
+      <div class="alert alert-{{ i.tags }} alert-dismissible fade show custom-alert"
+           role="alert">
+        <span class="alert-icon">
+          {% if i.tags == 'success' %}
+            ✔
+          {% elif i.tags == 'error' %}
+            ✖
+          {% elif i.tags == 'warning' %}
+            ⚠
+          {% else %}
+            ℹ
+          {% endif %}
+        </span>
+
+        <span class="alert-text">{{ i }}</span>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+    <h2 style="color: var(--danger);">remove employess</h2>
+    {% if empl %}
     <table class="content-table">
         <thead>
             <tr>
+                <th>S.no</th>
                 <th>Name</th>
-                <th>Email</th>
+                <th>email</th>
                 <th>Department</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Rajesh Kumar</td>
-                <td>rajesh@hr.com</td>
-                <td>HR</td>
-                <td><button class="btn-delete">Remove</button></td>
+         <tbody>
+         
+            
+            {% for i in  empl %}
+
+              <tr>
+                   <td>{{forloop.counter}}</td>
+                    <td>{{i.fname}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.dept}}</td>
+                <td><button class="btn-delete"><a style="text-decoration: none;" href={% url 'removeemp' pk=i.id %}>delete</a></button></td>
+            {% endfor%}
             </tr>
         </tbody>
     </table>
+        {% else %}
+     <h1>   no  employees </h1>
+    {% endif %}
 </div>
+
+
 
 {% elif remove_department %}
 <div class="form-card" style="max-width: 100%;">
+ {% if messages %}
+  <div class="message-wrapper">
+    {% for i in messages %}
+      <div class="alert alert-{{ i.tags }} alert-dismissible fade show custom-alert"
+           role="alert">
+        <span class="alert-icon">
+          {% if i.tags == 'success' %}
+            ✔
+          {% elif i.tags == 'error' %}
+            ✖
+          {% elif i.tags == 'warning' %}
+            ⚠
+          {% else %}
+            ℹ
+          {% endif %}
+        </span>
+
+        <span class="alert-text">{{ i }}</span>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
     <h2 style="color: var(--danger);">delete department</h2>
+    {% if deptdata %}
     <table class="content-table">
         <thead>
             <tr>
+                <th>S.no</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Department</th>
+                <th>Department_head</th>
+                <th>Department_code</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Rajesh Kumar</td>
-                <td>rajesh@hr.com</td>
-                <td>HR</td>
-                <td><button class="btn-delete">Remove</button></td>
+         <tbody>
+         
+            
+            {% for i in  deptdata %}
+
+              <tr>
+                   <td>{{forloop.counter}}</td>
+                    <td>{{i.dept_name}}</td>
+                    <td>{{i.dept_head}}</td>
+                    <td>{{i.dept_code}}</td>
+                <td><button class="btn-delete"><a style="text-decoration: none;" href={% url 'removedept' pk=i.id %}>delete</a></button></td>
+            {% endfor%}
             </tr>
         </tbody>
     </table>
+        {% else %}
+     <h1>   no  employees </h1>
+    {% endif %}
 </div>
 
 

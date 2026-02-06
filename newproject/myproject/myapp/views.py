@@ -64,9 +64,9 @@ def admindpanel(req):
 
 @never_cache
 def logout(req):
-    if 'admin_e' in req.session:
+    if 'admin_e' in req.session or 'emp_id' in req.session:
         req.session.flush()
-        return redirect('landing')
+        return redirect('login')
     else:
         return redirect('login')
    
@@ -259,8 +259,26 @@ def  remove_employees(req):
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
             'name': req.session['admin_n']
+        } 
+          empl=emp.objects.all()
+          return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True,'empl':empl})
+    else:
+        msg={'msg':'login first'}
+        return render(req,"login.html",{'msg':msg})
+
+def removeemp(req,pk):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'name': req.session['admin_n']
         }
-          return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True})
+          em=emp.objects.filter(id=pk)
+          q=query.objects.filter(id=pk)
+          q.delete()
+          em.delete()
+          empl=emp.objects.all()
+          return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True,'empl':empl})
     else:
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
@@ -272,11 +290,36 @@ def  remove_department(req):
             'password': req.session['admin_p'],
             'name': req.session['admin_n']
         }
-          return render(req,'admindpanel.html', {'data': a_data,"remove_department":True})
+          depdata=dep.objects.all()
+          return render(req,'admindpanel.html', {'data': a_data,"remove_department":True,'deptdata':depdata})
     else:
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+def removedept(req,pk):
+      if 'admin_e' in req.session and 'admin_p' in req.session:
+        a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'name': req.session['admin_n']
+        }
+        deprt=dep.objects.get(id=pk)
+        empindept=emp.objects.filter(dept=deprt.dept_name)
+        if empindept:
+            deptdata=dep.objects.all()
+            messages.error(req,"in this deprtment employee is working")
+            return render(req,'admindpanel.html', {'data': a_data,'remove_department':True,'deptdata':deptdata})
+        else:
+            deprt.delete()
+            deptdata=dep.objects.all()
+            messages.success(req,"department removed")
+            return render(req,'admindpanel.html', {'data': a_data,'remove_department':True,'deptdata':deptdata})
+
+      else:
+          return redirect("login")
+
+
+        
 
 def add_department(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
@@ -606,23 +649,58 @@ def done_query(req):
 
 
 def Edit(req,pk):
-    q=query.objects.get(id=pk)
-    return render(req,"emppanel.html",{'Edit':q})
+      if 'emp_id' in req.session:
+        emp_id=req.session.get('emp_id')
+        emp_data=emp.objects.get(id=emp_id)
+        data={
+         'fname':emp_data.fname,
+         'email':emp_data.email,
+         'DOB':emp_data.DOB,
+         'gender':emp_data.gender,
+        'mobile':emp_data.mobile,
+        }
+        q=query.objects.get(id=pk)
+        return render(req,"emppanel.html",{'data':data,'Edit':q})
 
 def Edit_query(req,pk):
-    if req.method=='POST':
-        message=req.POST.get('message')
-        emp=query.objects.get(id=pk)
-        emp.Query=message
-        emp.save()
-        messages.success(req,"Edit successfully")
-        return redirect('pending_query')
+    if 'emp_id' in req.session:
+        emp_id=req.session.get('emp_id')
+        emp_data=emp.objects.get(id=emp_id)
+        data={
+         'fname':emp_data.fname,
+         'email':emp_data.email,
+         'DOB':emp_data.DOB,
+         'gender':emp_data.gender,
+        'mobile':emp_data.mobile,
+        }
+        if req.method=='POST':
+         message=req.POST.get('message')
+         empq=query.objects.get(id=pk)
+         empq.Query=message
+         empq.save()
+         messages.success(req,"Edit successfully")
+         return redirect('pending_query')
+        
     
     
 def Del(req,pk):
-    qd=query.objects.get(id=pk)
-    qd.delete()
-    return redirect('pending_query')
+      if 'emp_id' in req.session:
+         emp_id=req.session.get('emp_id')
+         emp_data=emp.objects.get(id=emp_id)
+         data={
+          'fname':emp_data.fname,
+          'email':emp_data.email,
+          'DOB':emp_data.DOB,
+          'gender':emp_data.gender,
+         'mobile':emp_data.mobile,
+         }
+         qd=query.objects.get(id=pk)
+         qd.delete()
+         return redirect('pending_query')
+      else:
+        return redirect('login')
+
+
     
         
 

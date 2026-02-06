@@ -71,7 +71,10 @@ urlpatterns = [
     path("done_query",views.done_query,name="done_query"),
     path("Edit/<int:pk>/",views.Edit,name="Edit"),
     path("Edit_query/<int:pk>/",views.Edit_query,name="Edit_query"),
-    path("Del/<int:pk>/",views.Del,name="Del"),
+    path("emppanel/Del/<int:pk>/",views.Del,name="Del"),
+    path("removedept/<int:pk>/",views.removedept,name="removedept"),
+    path("removeemp/<int:pk>/",views.removeemp,name="removeemp"),
+
 
 
     
