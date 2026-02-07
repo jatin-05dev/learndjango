@@ -70,7 +70,7 @@ def logout(req):
     else:
         return redirect('login')
    
-
+@never_cache
 def about(req):
        if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
@@ -81,7 +81,7 @@ def about(req):
         return render(req,'about.html', {'data': a_data})
        else:
             return render(req,'about.html')
-
+@never_cache
 def services(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
          a_data = {
@@ -94,7 +94,7 @@ def services(req):
             return render(req,'services.html')
 
 
-
+@never_cache
 def sin(req):
           if 'admin_e' in req.session and 'admin_p' in req.session:
            a_data = {
@@ -106,7 +106,7 @@ def sin(req):
           else:
                return render(req,'sin.html')
  
-
+@never_cache
 def free(req):
             if 'admin_e' in req.session and 'admin_p' in req.session:
              a_data = {
@@ -117,7 +117,7 @@ def free(req):
              return render(req,'free.html', {'data': a_data})
             else:
                  return render(req,'free.html')
-
+@never_cache
 def xbox(req):
          if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -130,6 +130,7 @@ def xbox(req):
               return render(req,'xbox.html')
 
 # form wala
+@never_cache
 def save_department(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data={
@@ -155,6 +156,7 @@ def save_department(req):
     else:
      return redirect('login')
 
+@never_cache
 def addemp(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
             a_data = {
@@ -201,6 +203,7 @@ def addemp(req):
 
 
 # buttons wale
+@never_cache
 def add_anlytics(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -213,6 +216,7 @@ def add_anlytics(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+@never_cache
 def  add_setting(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -225,7 +229,7 @@ def  add_setting(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
-
+@never_cache
 def  add_employees(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -240,6 +244,7 @@ def  add_employees(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+@never_cache
 def  all_employees(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -253,6 +258,7 @@ def  all_employees(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+@never_cache
 def  remove_employees(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -266,6 +272,7 @@ def  remove_employees(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+@never_cache
 def removeemp(req,pk):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -274,8 +281,8 @@ def removeemp(req,pk):
             'name': req.session['admin_n']
         }
           em=emp.objects.filter(id=pk)
-          q=query.objects.filter(id=pk)
-          q.delete()
+        #   q=query.objects.filter(id=pk)
+        #   q.delete()
           em.delete()
           empl=emp.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True,'empl':empl})
@@ -283,6 +290,7 @@ def removeemp(req,pk):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
 
+@never_cache
 def  remove_department(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -295,7 +303,7 @@ def  remove_department(req):
     else:
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
-
+@never_cache
 def removedept(req,pk):
       if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
@@ -320,7 +328,7 @@ def removedept(req,pk):
 
 
         
-
+@never_cache
 def add_department(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -334,7 +342,7 @@ def add_department(req):
         return render(req,"login.html",{'msg':msg})
     
  
-
+@never_cache
 def all_department(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -348,7 +356,7 @@ def all_department(req):
         else:
          msg={'msg':'login first'}
          return render(req,"login.html",{'msg':msg})
-    
+@never_cache
 def all_quries(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -362,6 +370,7 @@ def all_quries(req):
         msg={'msg':'login first'}
         return render(req,"login.html",{'msg':msg})
     
+@never_cache
 def payroll(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -388,7 +397,7 @@ def payroll(req):
 
 #   employeeee
 
-
+@never_cache
 def emppanel(req):
     if 'emp_id' in req.session:
      emp_id=req.session.get('emp_id')
@@ -404,11 +413,12 @@ def emppanel(req):
     else:
         return redirect('login')
     
-
+@never_cache
 def forget(req):
     return render(req,"forget.html")
 
 
+@never_cache
 def forgot_password(req):
     if req.method == 'POST':
         email = req.POST.get('email')
@@ -435,11 +445,13 @@ def forgot_password(req):
     return render(req, 'forget.html')
 
 
+@never_cache
 def otp(req):
      return render(req,'otp.html')
 
 
 
+@never_cache
 def newpassword(req):
     if req.method == 'POST':
         user_otp = req.POST.get('otp')
@@ -455,9 +467,12 @@ def newpassword(req):
     email = req.session.get('email')
     return render(req,'confirm.html',{'email':email})
 
+@never_cache
 def confirm(req):
     return render(req,'confirm.html')
 
+
+@never_cache
 def newpass(req):
     if req.method=='POST':
         e = req.POST.get('email')
@@ -474,7 +489,7 @@ def newpass(req):
             messages.info(req,'Password and conform password not matched')
             return render(req,'confirm.html',{'email':e})
         
-
+@never_cache
 def resend_otp(req):
     otp_code=random.randint(111111,999999)
     req.session.pop('otp')
@@ -493,6 +508,7 @@ def resend_otp(req):
 
 
 # qurry
+@never_cache
 def apply_query(req):
     if 'emp_id' in req.session:
        emp_id=req.session.get('emp_id')
@@ -508,6 +524,8 @@ def apply_query(req):
        print(depd)
        return render(req,'emppanel.html',{'apply_query':True,'data':data,'depd':depd})
 
+
+@never_cache
 def profile(req):
     if 'emp_id' in req.session:
        emp_id=req.session.get('emp_id')
@@ -528,6 +546,7 @@ def profile(req):
 
 
 
+@never_cache
 def submit_query(req):
     if req.method=='POST':
         name=req.POST.get('name')
@@ -551,7 +570,7 @@ def submit_query(req):
     return render(req,'emppanel.html',{'data':data,'depd':depd,'apply_query':True})
 
     
-
+@never_cache
 def show_query(req):
      if 'emp_id' in req.session:
        emp_id=req.session.get('emp_id')
@@ -568,8 +587,7 @@ def show_query(req):
     #    return render(req,'emppanel.html',{'data':data,'show_query':qdata})
        return render(req,'emppanel.html',{'data':data,'show_query':True,'qdata':qdata})
 
-
-
+@never_cache
 def a_reply(req,pk):
     if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
@@ -583,6 +601,7 @@ def a_reply(req,pk):
         return redirect('login')
     
 
+@never_cache
 def reply_query(req,pk):
     if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
@@ -612,7 +631,7 @@ def reply_query(req,pk):
 
 
 
-
+@never_cache
 def pending_query(req):
      if 'emp_id' in req.session:
         emp_id=req.session.get('emp_id')
@@ -630,7 +649,7 @@ def pending_query(req):
         return render(req,'emppanel.html',{'data':data,'pending_query':True,'qdata':qdata})
 
 
-
+@never_cache
 def done_query(req):
      if 'emp_id' in req.session:
         emp_id=req.session.get('emp_id')
@@ -647,7 +666,7 @@ def done_query(req):
        
         return render(req,'emppanel.html',{'data':data,'done_query':True,'qdata':qdata})
 
-
+@never_cache
 def Edit(req,pk):
       if 'emp_id' in req.session:
         emp_id=req.session.get('emp_id')
@@ -662,6 +681,7 @@ def Edit(req,pk):
         q=query.objects.get(id=pk)
         return render(req,"emppanel.html",{'data':data,'Edit':q})
 
+@never_cache
 def Edit_query(req,pk):
     if 'emp_id' in req.session:
         emp_id=req.session.get('emp_id')
@@ -682,7 +702,7 @@ def Edit_query(req,pk):
          return redirect('pending_query')
         
     
-    
+@never_cache    
 def Del(req,pk):
       if 'emp_id' in req.session:
          emp_id=req.session.get('emp_id')
