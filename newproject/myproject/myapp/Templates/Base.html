@@ -58,11 +58,21 @@
             <p style="color: black;">welcome : {{data.fname |default:'guest'}}</p>
 
                 <div style="width: 32px; height: 32px; border: 1px solid #505050; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #505050;">
-                {% if data %}
-                   <a href={% url 'admindpanel' %}>👤</a> 
+                {% comment %} {% if data %}
+                   <a href={% url 'admindpanel'  %}>👤</a> 
                 {% else %}
                    <a href={% url 'login' %}>👤</a> 
-                {% endif %}
+                {% endif %} {% endcomment %}
+                {% if request.session.admin_e %}
+        <a href="{% url 'admindpanel' %}">👤</a>
+
+    {% elif request.session.emp_id %}
+    <a href="{% url 'emppanel' %}">👤</a>
+
+    {% else %}
+    <a href="{% url 'login' %}">👤</a>
+    {% endif %}
+
                 </div>
             </div>
         </div>

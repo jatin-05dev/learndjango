@@ -6,21 +6,77 @@ import random
 from django.views.decorators.cache import never_cache
 # /ad/de/d
 # Create your views here.
+
+
+
+# def landing(req):
+#     if 'admin_e' in req.session or 'user_id' in req.session:
+#         if 'admin_e' in req.session:
+#             data = {
+#                 'email': req.session['admin_e'],
+#                 'name': req.session['admin_n']
+#             }
+#             return render(req, 'adminpanel.html', {'data': data})
+#         elif 'user_id' in req.session:
+#             u_id=req.session.get('user_id')
+#             userdata=Employee.objects.get(id=u_id)
+#             data={
+#                 'name':userdata.name,
+#                 'email':userdata.email,
+#                 'contact':userdata.contact,
+#                 'department':userdata.department
+#             }
+            
+#             return render(req,'userpanel.html',{'data':data})
+#     return render(req,'landing.html')
+
 @never_cache
 def landing(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
+          
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           return render(req,'landing.html', {'data': a_data})
         else:
-            return render(req,'landing.html')
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'landing.html',{'data':data})
+        return render(req,'landing.html')
 
 @never_cache
 def login(req):
-    if req.method == 'POST':
+      if 'admin_e' in req.session and 'admin_p' in req.session:
+          
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          return render(req,'admindpanel.html', {'data': a_data})
+      else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'emppanel.html',{'data':data})
+      if req.method == 'POST':
         e = req.POST.get('email')
         p = req.POST.get('password')
         if e == 'admin@gmail.com' and p == 'admin':
@@ -44,20 +100,35 @@ def login(req):
             else:
                 x={'g':"Invalid Email"}
                 return render(req,'login.html',{'data':x})
-    return render(req, 'login.html')
+      return render(req, 'login.html')
+
 
 @never_cache
 def admindpanel(req):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+        a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+        return redirect('adminpanel1')
+    else:
+        return redirect('login')   
+
+@never_cache
+def adminpanel1(req):
     # Admin Session Check
     if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
+
         deptdata=dep.objects.all()
         all_emp=emp.objects.all()
-        return render(req, 'admindpanel.html', {'data': a_data,'deptdata':deptdata,'all_emp':all_emp})   
+        pendingq=query.objects.filter(status='pending')
+        return render(req,'admindpanel.html', {'data': a_data,'deptdata':deptdata,'all_emp':all_emp,'pendingq':pendingq})   
     else:
         return redirect('login')
     
@@ -72,62 +143,140 @@ def logout(req):
    
 @never_cache
 def about(req):
-       if 'admin_e' in req.session and 'admin_p' in req.session:
-        a_data = {
-            'email': req.session['admin_e'],
-            'password': req.session['admin_p'],
-            'name': req.session['admin_n']
-        }
-        return render(req,'about.html', {'data': a_data})
-       else:
-            return render(req,'about.html')
-@never_cache
-def services(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
-         a_data = {
-            'email': req.session['admin_e'],
-            'password': req.session['admin_p'],
-            'name': req.session['admin_n']
-        }
-         return render(req,'services.html', {'data': a_data})
-        else:
-            return render(req,'services.html')
-
-
-@never_cache
-def sin(req):
-          if 'admin_e' in req.session and 'admin_p' in req.session:
-           a_data = {
-            'email': req.session['admin_e'],
-            'password': req.session['admin_p'],
-            'name': req.session['admin_n']
-        }
-           return render(req,'sin.html', {'data': a_data})
-          else:
-               return render(req,'sin.html')
- 
-@never_cache
-def free(req):
-            if 'admin_e' in req.session and 'admin_p' in req.session:
-             a_data = {
-            'email': req.session['admin_e'],
-            'password': req.session['admin_p'],
-            'name': req.session['admin_n']
-        } 
-             return render(req,'free.html', {'data': a_data})
-            else:
-                 return render(req,'free.html')
-@never_cache
-def xbox(req):
-         if 'admin_e' in req.session and 'admin_p' in req.session:
+          
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
+        }
+          return render(req,'about.html', {'data': a_data})
+        else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'about.html',{'data':data})
+        return render(req,'about.html')
+
+         
+       
+@never_cache
+def services(req):
+        if 'admin_e' in req.session and 'admin_p' in req.session:
+          
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          return render(req,'services.html', {'data': a_data})
+        else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'services.html',{'data':data})
+        return render(req,'services.html')
+        
+        
+
+@never_cache
+def sin(req):
+      if 'admin_e' in req.session and 'admin_p' in req.session:
+          
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          return render(req,'sin.html', {'data': a_data})
+      else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'sin.html',{'data':data})
+      return render(req,'sin.html')
+        
+        
+
+    
+ 
+@never_cache
+def free(req):
+     if 'admin_e' in req.session and 'admin_p' in req.session:
+          
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          return render(req,'free.html', {'data': a_data})
+     else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'free.html',{'data':data})
+     return render(req,'free.html')
+        
+     
+    
+    
+    
+           
+@never_cache
+def xbox(req):
+      if 'admin_e' in req.session and 'admin_p' in req.session:
+          
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
         }
           return render(req,'xbox.html', {'data': a_data})
-         else:
-              return render(req,'xbox.html')
+      else:
+             if 'emp_id' in req.session:
+                emp_id=req.session.get('emp_id')
+                emp_data=emp.objects.get(id=emp_id)
+                data={
+                'fname':emp_data.fname,
+                'email':emp_data.email,
+                'DOB':emp_data.DOB,
+                'gender':emp_data.gender,
+                'mobile':emp_data.mobile,
+                }
+                return render(req,'xbox.html',{'data':data})
+      return render(req,'xbox.html')
+        
+     
+    
+    
 
 # form wala
 @never_cache
@@ -136,7 +285,7 @@ def save_department(req):
         a_data={
                 'email': req.session['admin_e'],
                 'password': req.session['admin_p'],
-                'name': req.session['admin_n']
+                'fname': req.session['admin_n']
             } 
         if req.method=='POST':
             dname=req.POST.get('dept_name')
@@ -144,7 +293,7 @@ def save_department(req):
             dhead=req.POST.get('dept_head')
             dbudget=req.POST.get('dept_budget')
             ddesc=req.POST.get('dept_desc')
-            deptdata=dep.objects.filter(dept_name=dname)
+            deptdata=dep.objects.filter(dept_name__iexact=dname)
             if not deptdata:
                 dep.objects.create(dept_name=dname,dept_code=dcode,dept_head=dhead,dept_budget=dbudget,dept_desc=ddesc)
                 messages.success(req,"department added")
@@ -162,7 +311,7 @@ def addemp(req):
             a_data = {
                     'email': req.session['admin_e'],
                     'password': req.session['admin_p'],
-                    'name': req.session['admin_n']
+                    'fname': req.session['admin_n']
                 } 
             if req.method=='POST':
                 fname=req.POST.get('fname')
@@ -209,12 +358,11 @@ def add_anlytics(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           return render(req,'admindpanel.html', {'data': a_data,'add_anlytics':True})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
 
 @never_cache
 def  add_setting(req):
@@ -222,12 +370,12 @@ def  add_setting(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           return render(req,'admindpanel.html', {'data': a_data,'add_setting':True})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+
 
 @never_cache
 def  add_employees(req):
@@ -235,28 +383,27 @@ def  add_employees(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
          
           deptdata=dep.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"add_employees":True,'deptdata':deptdata})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
-
+        return redirect("login")
+        
 @never_cache
 def  all_employees(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           all_emp = emp.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"all_employees":True,'all_emp':all_emp})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+         
 
 @never_cache
 def  remove_employees(req):
@@ -264,13 +411,13 @@ def  remove_employees(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         } 
           empl=emp.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True,'empl':empl})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+        
 
 @never_cache
 def removeemp(req,pk):
@@ -278,7 +425,7 @@ def removeemp(req,pk):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           em=emp.objects.filter(id=pk)
         #   q=query.objects.filter(id=pk)
@@ -287,8 +434,8 @@ def removeemp(req,pk):
           empl=emp.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"remove_employees":True,'empl':empl})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+       
 
 @never_cache
 def  remove_department(req):
@@ -296,20 +443,20 @@ def  remove_department(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           depdata=dep.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"remove_department":True,'deptdata':depdata})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+       
 @never_cache
 def removedept(req,pk):
       if 'admin_e' in req.session and 'admin_p' in req.session:
         a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
         deprt=dep.objects.get(id=pk)
         empindept=emp.objects.filter(dept=deprt.dept_name)
@@ -334,12 +481,13 @@ def add_department(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           return render(req,'admindpanel.html', {'data': a_data,"add_department":'add_department'})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+
+ 
     
  
 @never_cache
@@ -348,27 +496,28 @@ def all_department(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           deptdata=dep.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
     
         else:
-         msg={'msg':'login first'}
-         return render(req,"login.html",{'msg':msg})
+          return redirect("login")
+
+        
 @never_cache
 def all_quries(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           qdata=query.objects.all()
           return render(req,'admindpanel.html', {'data': a_data,'qdata':qdata,"all_quries":True})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
+        return redirect("login")
+       
     
 @never_cache
 def payroll(req):
@@ -376,13 +525,12 @@ def payroll(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
+            'fname': req.session['admin_n']
         }
           return render(req,'admindpanel.html', {'data': a_data,"payroll":True})
     else:
-        msg={'msg':'login first'}
-        return render(req,"login.html",{'msg':msg})
-    
+        return redirect("login")
+       
 
 
     
@@ -396,20 +544,33 @@ def payroll(req):
           
 
 #   employeeee
+@never_cache
+def emppanel1(req):
+    if 'emp_id' in req.session:
+        emp_id=req.session.get('emp_id')
+        emp_data=emp.objects.get(id=emp_id)
+        data={
+            'fname':emp_data.fname,
+            'email':emp_data.email,
+            'DOB':emp_data.DOB,
+            'gender':emp_data.gender,
+            'mobile':emp_data.mobile,
+        }
+        empe=emp_data.email
+        showdata={
+        'showq':query.objects.filter(Email=empe),
+        'pendingq':query.objects.filter(Email=empe,status='pending'),
+        'doneq':query.objects.filter(Email=empe,status='done'),
+        }
+        return render(req,'emppanel.html',{'data':data,'showdata':showdata})
+    else:
+        return redirect('login')
+         
 
 @never_cache
 def emppanel(req):
     if 'emp_id' in req.session:
-     emp_id=req.session.get('emp_id')
-     emp_data=emp.objects.get(id=emp_id)
-     data={
-        'fname':emp_data.fname,
-        'email':emp_data.email,
-        'DOB':emp_data.DOB,
-        'gender':emp_data.gender,
-        'mobile':emp_data.mobile,
-    }
-     return render(req,'emppanel.html',{'data':data})
+        return redirect('emppanel1')
     else:
         return redirect('login')
     
@@ -523,6 +684,7 @@ def apply_query(req):
        depd=dep.objects.all()   
        print(depd)
        return render(req,'emppanel.html',{'apply_query':True,'data':data,'depd':depd})
+    return redirect('login')
 
 
 @never_cache
@@ -542,9 +704,6 @@ def profile(req):
        return render(req,'emppanel.html',{'profile':True,'data':data,'depd':depd})
     else:
         return redirect('login')
-
-
-
 
 @never_cache
 def submit_query(req):
@@ -569,6 +728,7 @@ def submit_query(req):
         return render(req,'emppanel.html',{'data':data,'depd':depd,'apply_query':True})
     return render(req,'emppanel.html',{'data':data,'depd':depd,'apply_query':True})
 
+
     
 @never_cache
 def show_query(req):
@@ -586,7 +746,9 @@ def show_query(req):
        qdata=query.objects.filter(Email=empe)
     #    return render(req,'emppanel.html',{'data':data,'show_query':qdata})
        return render(req,'emppanel.html',{'data':data,'show_query':True,'qdata':qdata})
-
+     else:
+        return redirect('login')
+         
 @never_cache
 def a_reply(req,pk):
     if 'admin_e' in req.session and 'admin_p' in req.session:
@@ -647,6 +809,9 @@ def pending_query(req):
         qdata=query.objects.filter(Email=empe,status="pending")
        
         return render(req,'emppanel.html',{'data':data,'pending_query':True,'qdata':qdata})
+     else:
+        return redirect('login')
+         
 
 
 @never_cache
@@ -665,6 +830,9 @@ def done_query(req):
         qdata=query.objects.filter(Email=empe,status="done")
        
         return render(req,'emppanel.html',{'data':data,'done_query':True,'qdata':qdata})
+     else:
+        return redirect('login')
+        
 
 @never_cache
 def Edit(req,pk):
@@ -680,6 +848,9 @@ def Edit(req,pk):
         }
         q=query.objects.get(id=pk)
         return render(req,"emppanel.html",{'data':data,'Edit':q})
+      else:
+        return redirect('login')
+          
 
 @never_cache
 def Edit_query(req,pk):
@@ -700,6 +871,9 @@ def Edit_query(req,pk):
          empq.save()
          messages.success(req,"Edit successfully")
          return redirect('pending_query')
+    else:
+      return redirect('login')
+
         
     
 @never_cache    
@@ -720,8 +894,29 @@ def Del(req,pk):
       else:
         return redirect('login')
 
+# search
+@never_cache    
+def search(req):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'name': req.session['admin_n']
+        }
+          if req.method=='POST':
+            search=req.POST.get('searchh')
+            deptdata=dep.objects.filter(dept_head__contains=search)
+            return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
+          else:
+            deptdata=dep.objects.all()
+            return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
+    else:
+        return redirect('login')      
+
+ 
+
+
+
 
     
-        
-
-
+    

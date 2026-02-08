@@ -14,7 +14,7 @@ class emp(models.Model):
     fname=models.CharField(max_length=50,null=True,blank=True)
     lname=models.CharField(max_length=50,null=True,blank=True)
     email=models.CharField(max_length=50,null=True,blank=True)
-    img=models.ImageField()
+    img=models.ImageField(upload_to='profile/')
     adhaar=models.ImageField()
     code=models.CharField(max_length=50,null=True,blank=True)
     mobile=models.CharField(max_length=50,null=True,blank=True)

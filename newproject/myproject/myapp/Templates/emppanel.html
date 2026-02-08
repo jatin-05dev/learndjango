@@ -578,15 +578,15 @@
         
         <div class="stats-grid">
             <div class="stat-card">
-                <div><p style="color: #64748b; margin:0;">Open Queries</p><h3>63</h3></div>
+                <div><p style="color: #64748b; margin:0;">Open Queries</p><h3>{{showdata.showq.count|default:'0'}}</h3></div>
                 <span class="material-icons-outlined" style="color: var(--accent); font-size: 40px;">help_center</span>
             </div>
             <div class="stat-card">
-                <div><p style="color: #64748b; margin:0;"> Pending queries</p><h3>05</h3></div>
+                <div><p style="color: #64748b; margin:0;"> Pending queries</p><h3>{{showdata.pendingq.count|default:'0'}}</h3></div>
                 <span class="material-icons-outlined" style="color: var(--warning); font-size: 40px;">assignment</span>
             </div>
             <div class="stat-card">
-                <div><p style="color: #64748b; margin:0;">done queries</p><h3>05</h3></div>
+                <div><p style="color: #64748b; margin:0;">done queries</p><h3>{{showdata.doneq.count|default:'0'}}</h3></div>
                 <span class="material-icons-outlined" style="color: var(--warning); font-size: 40px;">assignment</span>
             </div>
             <div class="stat-card">

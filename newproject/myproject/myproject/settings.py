@@ -136,3 +136,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jattfact@gmail.com'
 EMAIL_HOST_PASSWORD = 'kqtcplxlyqxtupfm'
 APPEND_SLASH=False 
+
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

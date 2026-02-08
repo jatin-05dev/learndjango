@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from myapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
 
     # admin
@@ -24,6 +26,7 @@ urlpatterns = [
     path('', views.landing,name='landing'),
     path('login', views.login,name='login'),
     path('admindpanel',views.admindpanel,name='admindpanel'),
+    path("adminpanel1/",views.adminpanel1,name="adminpanel1"),
     path('logout',views.logout,name='logout'),
     path('about',views.about,name='about'),
     path('services',views.services,name='services'),
@@ -50,6 +53,7 @@ urlpatterns = [
 
     # employees
     path('emppanel',views.emppanel,name='emppanel'),
+    path('emppanel1',views.emppanel1,name='emppanel1'),
     path('forget',views.forget,name='forget'),
     path("forgot_password",views.forgot_password,name='forgot_password'),
     path("newpassword",views.newpassword,name='newpassword'),
@@ -74,42 +78,9 @@ urlpatterns = [
     path("emppanel/Del/<int:pk>/",views.Del,name="Del"),
     path("removedept/<int:pk>/",views.removedept,name="removedept"),
     path("removeemp/<int:pk>/",views.removeemp,name="removeemp"),
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
+    path("removeemp/<int:pk>/",views.removeemp,name="removeemp"),
+    path("search/",views.search,name="search"),
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

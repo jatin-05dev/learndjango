@@ -308,6 +308,102 @@
     }
 }
 
+/* search input styling */
+input[type="search"][name="search"] {
+    margin: 20px 0;
+    padding: 15px 12px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* focus effect */
+input[type="search"][name="search"]:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+/* placeholder style */
+input[type="search"]::placeholder {
+    color: #999;
+    padding:10px;
+}
+
+/* search button styling */
+input[type="button"][value="search here"] {
+    padding: 8px 10px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* hover effect */
+input[type="button"][value="search here"]:hover {
+    background-color: #357abd;
+    transform: translateY(-1px);
+}
+
+/* active click effect */
+input[type="button"][value="search here"]:active {
+    transform: scale(0.97);
+}
+
+/* search button styling */
+input[type="button"][value="search here"] {
+    padding: 8px 16px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* hover effect */
+input[type="button"][value="search here"]:hover {
+    background-color: #357abd;
+    transform: translateY(-1px);
+}
+
+/* active click effect */
+input[type="button"][value="search here"]:active {
+    transform: scale(0.97);
+}
+
+
+.search-btn {
+    padding: 5px 5px;
+    background: linear-gradient(135deg, #4CAF50, #2e8b57);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+}
+
+.search-btn:hover {
+    background: linear-gradient(135deg, #43a047, #1e6f43);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
 </style>
 {% endblock css %}
 
@@ -813,11 +909,16 @@
                 <th>Total Staff</th>
             </tr>
         </thead>
+        <form action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="searchh" placeholder="🔍search">
+       <input type="submit" value="Search Here" class="search-btn">
+        </form>
+
+        <br><br>
         <tbody>
             <tr>
             {% for i in deptdata %}
-
-             
                    <td>{{forloop.counter}}</td>
                     <td>{{i.dept_name}}</td>
                     <td>{{i.dept_head}}</td>
@@ -999,7 +1100,7 @@
     <div class="info-card">
         <div class="info-data">
             <p>Pending Tasks</p>
-            <h1>15</h1>
+            <h1>{{pendingq.count|default:'0'}}</h1>
         </div>
         <div class="info-icon-large" style="background: #ecfdf5; color: #10b981;"><span
                 class="material-icons-outlined">pending_actions</span></div>
