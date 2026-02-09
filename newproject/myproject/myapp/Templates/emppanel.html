@@ -273,8 +273,8 @@
     <main class="main-content">
         
         {% if profile %}
+        
         <div class="profile-header">
-        {{data.img}}
             <img src="{{data.img.url|default:'https://via.placeholder.com/100'}}" class="profile-img">
             <div>
                 <h2 style="margin: 0;">{{ data.fname }} {{ data.lname }}</h2>

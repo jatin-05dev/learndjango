@@ -551,6 +551,7 @@ def emppanel1(req):
         emp_data=emp.objects.get(id=emp_id)
         data={
             'fname':emp_data.fname,
+            'img':emp_data.img,
             'email':emp_data.email,
             'DOB':emp_data.DOB,
             'gender':emp_data.gender,
@@ -694,6 +695,7 @@ def profile(req):
        emp_data=emp.objects.get(id=emp_id)
        data={
         'fname':emp_data.fname,
+        'img':emp_data.img,
         'email':emp_data.email,
         'DOB':emp_data.DOB,
         'gender':emp_data.gender,
