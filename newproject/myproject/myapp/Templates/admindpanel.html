@@ -897,8 +897,17 @@ input[type="button"][value="search here"]:active {
 
     <h2>All Departments</h2>
 
+      <form action="{% url 'search1' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="searchh" placeholder="🔍search">
+        
+       <input type="submit" value="Search Here" class="search-btn">
+
+       </form>
+
+       <button><a href={% url 'cross' %}>❌</a></button>
     {% if deptdata %}
-    
+
  
     <table class="content-table">
         <thead>
@@ -909,11 +918,8 @@ input[type="button"][value="search here"]:active {
                 <th>Total Staff</th>
             </tr>
         </thead>
-        <form action="{% url 'search' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="searchh" placeholder="🔍search">
-       <input type="submit" value="Search Here" class="search-btn">
-        </form>
+      
+     
 
         <br><br>
         <tbody>

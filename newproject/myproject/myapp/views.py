@@ -901,22 +901,50 @@ def search(req):
           a_data = {
             'email': req.session['admin_e'],
             'password': req.session['admin_p'],
-            'name': req.session['admin_n']
-        }
-          if req.method=='POST':
-            search=req.POST.get('searchh')
-            deptdata=dep.objects.filter(dept_head__contains=search)
-            return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
-          else:
-            deptdata=dep.objects.all()
-            return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
+            'fname': req.session['admin_n']
+        }   
+          search=req.session.get('search') 
+          deptdata=dep.objects.filter(dept_head__contains=search,dept_name__contains=search)
+          return render(req,'admindpanel.html',{'data': a_data,"all_department":True,'deptdata':deptdata})
+        
     else:
         return redirect('login')      
 
  
 
 
+@never_cache
+
+def search1(req):
+        if 'admin_e' in req.session and 'admin_p' in req.session:
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          if req.method=='POST':
+            search=req.POST.get('searchh')
+            req.session['search']=search
+            return redirect('search')
+          else:
+            return redirect('adminpanel1') 
+        else:
+            return redirect('login')      
+    
 
 
+@never_cache
+def cross(req):
+    if 'admin_e' in req.session and 'admin_p' in req.session:
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          deptdata=dep.objects.all()
+          return render(req,'admindpanel.html', {'data': a_data,"all_department":True,'deptdata':deptdata})
+    
+    else:
+        return redirect("login")
     
     

@@ -274,7 +274,8 @@
         
         {% if profile %}
         <div class="profile-header">
-            <img src="{{data.img.url|default:'https://via.placeholder.com/100' }}" class="profile-img">
+        {{data.img}}
+            <img src="{{data.img.url|default:'https://via.placeholder.com/100'}}" class="profile-img">
             <div>
                 <h2 style="margin: 0;">{{ data.fname }} {{ data.lname }}</h2>
                 <p style="color: #64748b; margin: 5px 0;">{{ data.dept }} | {{ data.code }}</p>
