@@ -1,0 +1,36 @@
+     <h2 style="color: var(--danger);">forward_access</h2>
+    <table class="content-table" border="2px">
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>email</th>
+                <th>contact</th>
+                <th>city</th>
+                <th>adharr_no</th>
+                <th>create_date</th>
+                <th>create_by</th>
+            </tr>
+        </thead>
+         <tbody>
+         
+            
+            {% for i in  stu_data %}
+
+            {% if i.stu.name %}
+                <tr>
+                   <td>{{forloop.counter}}</td>
+                   <td>{{i.stu.name}}</td>
+                    <td>{{i.stu.email}}</td>
+                    <td>{{i.stu.contact}}</td>
+                    <td>{{i.stu.city}}</td>
+                    <td>{{i.adharr_no}}</td>
+                    <td>{{i.create_date}}</td>
+                    <td>{{i.create_by}}</td>
+                </tr>    
+            {% endif %}
+            {% endfor%}
+        </tbody>
+    </table>
+    
+</div>
