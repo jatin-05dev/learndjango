@@ -436,7 +436,11 @@ input[type="button"][value="search here"]:active {
         <a href={% url 'all_department' %} class="action-item"><span class="material-icons-outlined">account_tree</span>
             All Departments</a>
         <a href={% url 'all_quries' %} class="action-item"><span class="material-icons-outlined">account_tree</span> All
+
             qruies</a>
+            <a href={% url 'cemployees' %} class="action-item"><span class="material-icons-outlined">account_tree</span> current employess</a>
+            
+
         <a href={% url 'logout' %} class="action-item logout-box">
             <span class="material-icons-outlined">logout</span> Logout
         </a>
@@ -899,14 +903,21 @@ input[type="button"][value="search here"]:active {
 
       <form action="{% url 'search1' %}" method="post">
         {% csrf_token %}
-        <input type="text" name="searchh" placeholder="🔍search">
         
-       <input type="submit" value="Search Here" class="search-btn">
 
-       </form>
 
        <button><a href={% url 'cross' %}>❌</a></button>
+       
+       <input type="text" name="sdeptname" placeholder="🔍search">
+       <input type="text" name="sdepthead" placeholder="🔍search">
+       <input type="text" name="sdeptcode" placeholder="🔍search">
+       <input type="submit" value="Search Here" class="search-btn">
+       </form>
+
+
+
     {% if deptdata %}
+
 
  
     <table class="content-table">
@@ -987,7 +998,41 @@ input[type="button"][value="search here"]:active {
     </table>
 </div>
 
+{% elif cemployees %}
 
+<div class="form-card" style="max-width: 100%;">
+    <h2> current employees </h2>
+    {% if current_emp %}
+    
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>employee Name</th>
+                <th>department</th>
+                
+                
+
+            </tr>
+        </thead>
+        <tbody>
+             <tr>
+            {% for i in current_emp %}
+                   <td>{{forloop.counter}}</td>
+                    <td>{{i.fname}}</td>
+                    <td>{{i.dept}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+       {% else %}
+       <h1>
+    no current emp
+       </h1>
+    {% endif %}
+        </tbody>
+    </table>
+</div>
 
     {% elif a_reply %}
       <div style="width:600px; margin:40px auto; background:#fff; padding:20px; border-radius:6px; box-shadow:0 0 10px #ccc;">

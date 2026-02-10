@@ -905,8 +905,13 @@ def search(req):
             'password': req.session['admin_p'],
             'fname': req.session['admin_n']
         }   
-          search=req.session.get('search') 
-          deptdata=dep.objects.filter(dept_head__contains=search,dept_name__contains=search)
+          searchn=req.session.get('searchn') 
+          sdepthead=req.session.get('searchh') 
+          sdeptcode=req.session.get('sdeptcode') 
+          deptdata=dep.objects.filter(dept_name__contains=searchn,dept_head__contains=sdepthead,dept_code__contains=sdeptcode)
+          req.session.pop('searchn')
+          req.session.pop('searchh')
+          req.session.pop('sdeptcode')
           return render(req,'admindpanel.html',{'data': a_data,"all_department":True,'deptdata':deptdata})
         
     else:
@@ -925,8 +930,12 @@ def search1(req):
             'fname': req.session['admin_n']
         }
           if req.method=='POST':
-            search=req.POST.get('searchh')
-            req.session['search']=search
+            searchn=req.POST.get('sdeptname')
+            searchh=req.POST.get('sdepthead')
+            sdeptcode=req.POST.get('sdeptcode')
+            req.session['searchn']=searchn
+            req.session['searchh']=searchh
+            req.session['sdeptcode']=sdeptcode
             return redirect('search')
           else:
             return redirect('adminpanel1') 
@@ -949,4 +958,20 @@ def cross(req):
     else:
         return redirect("login")
     
+@never_cache
+
+def cemployees(req):
+     if 'admin_e' in req.session and 'admin_p' in req.session:
+          a_data = {
+            'email': req.session['admin_e'],
+            'password': req.session['admin_p'],
+            'fname': req.session['admin_n']
+        }
+          
+          current_emp = emp.objects.all().order_by('-id')[:5]
+          return render(req,'admindpanel.html', {'data': a_data,"cemployees":True,'current_emp':current_emp})
+     else:
+         return redirect('login')
+
+
     
