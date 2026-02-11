@@ -14,6 +14,11 @@ class Stu(models.Model):
     email=models.CharField(max_length=20)
     contact=models.IntegerField(max_length=20)
     city=models.CharField(max_length=20)
+    # without related name
     a_no=models.OneToOneField(Adhaar,on_delete=models.CASCADE)
+    # with related name
+    a_no=models.OneToOneField(Adhaar,on_delete=models.CASCADE,related_name='jatin')
+
+
 
 
