@@ -17,8 +17,7 @@ class Stu(models.Model):
     # without related name
     a_no=models.OneToOneField(Adhaar,on_delete=models.CASCADE)
     # with related name
-    a_no=models.OneToOneField(Adhaar,on_delete=models.CASCADE,related_name='jatin')
-
+    # a_no=models.OneToOneField(Adhaar,on_delete=models.CASCADE,related_name='jatin')
 
 
 
