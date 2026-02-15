@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>hello django cloudnary</h1>
+
+    <h1>img</h1>
+    <img src={% static 'img/img1.jpg' %} alt="">
+    <h1>audio</h1>
+     <audio controls src={% static 'audio/Harry.mp3' %}></audio>
+     <h1>video</h1>
+    <video controls src={% static 'video/v.mp4' %}></video>
+
+    {% load static %}
+
+{% comment %} <audio controls>
+    <source src="{% static 'audio/Harry.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio> {% endcomment %}
+
+</body>
+</html>
