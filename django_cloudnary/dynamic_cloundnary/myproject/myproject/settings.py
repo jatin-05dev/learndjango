@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'cloudinary_storage',
+	'cloudinary',
     'my_app'
 ]
+
+CLOUDINARY_STORAGE = {
+					'CLOUD_NAME': 'dg0chznki',
+					'API_KEY': '497784653293819',
+					'API_SECRET': 'yN1e70ufD_MIjkuQ8hbzOzGRENw'}  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,5 +125,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-MEDIA_URL='media/'
-MEDIA_ROOT=BASE_DIR/'media'
+# MEDIA_URL='media/'
+# MEDIA_ROOT=BASE_DIR/'media'
+
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+MEDIA_ROOT = BASE_DIR/'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
