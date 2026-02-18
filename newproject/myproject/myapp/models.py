@@ -1,6 +1,28 @@
 from django.db import models
+from django.core.validators import MinLengthValidator,MaxValueValidator,FileExtensionValidator,MaxLengthValidator
+import re
+from django.core.exceptions import ValidationError
 
 # Create your models here.
+import re
+from django.db import models
+from django.core.exceptions import ValidationError
+
+class emp(models.Model):
+    fname = models.CharField(max_length=50, null=True, blank=True)
+    lname = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=100, null=True, blank=True)
+    img = models.ImageField(upload_to='profile/')
+    adhaar = models.ImageField(upload_to='adhaar/')
+    code = models.CharField(max_length=50, null=True, blank=True)
+    mobile = models.CharField(max_length=10, null=True, blank=True)
+    DOB = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=50, null=True, blank=True)
+    edu = models.CharField(max_length=50, null=True, blank=True)
+    dept = models.CharField(max_length=50, null=True, blank=True)
+ 
+
+
 class dep(models.Model):
     dept_name=models.CharField(max_length=50,null=True,blank=True)
     dept_code=models.CharField(max_length=50,null=True,blank=True,unique=True)
@@ -8,20 +30,8 @@ class dep(models.Model):
     dept_budget=models.CharField(max_length=50,null=True,blank=True)
     dept_desc=models.CharField(max_length=50,null=True,blank=True)
     dept_emp=models.CharField(max_length=50,null=True,blank=True)
+    # dept_emp=models.OneToOneField(emp.fname,on_delete=models.CASCADE,null=True)
 
-
-class emp(models.Model):
-    fname=models.CharField(max_length=50,null=True,blank=True)
-    lname=models.CharField(max_length=50,null=True,blank=True)
-    email=models.CharField(max_length=50,null=True,blank=True)
-    img=models.ImageField(upload_to='profile/')
-    adhaar=models.ImageField()
-    code=models.CharField(max_length=50,null=True,blank=True)
-    mobile=models.CharField(max_length=50,null=True,blank=True)
-    DOB=models.CharField(max_length=50,null=True,blank=True)
-    gender=models.CharField(max_length=50,null=True,blank=True)
-    edu=models.CharField(max_length=50,null=True,blank=True)
-    dept=models.CharField(max_length=50,null=True,blank=True)
 
 class query(models.Model):
     Name=models.CharField(max_length=50)

@@ -912,16 +912,12 @@ def search(req):
           req.session.pop('searchn')
           req.session.pop('searchh')
           req.session.pop('sdeptcode')
-          return render(req,'admindpanel.html',{'data': a_data,"all_department":True,'deptdata':deptdata})
-        
+          return render(req,'admindpanel.html',{'data': a_data,"all_department":True,'deptdata':deptdata})    
     else:
         return redirect('login')      
 
  
-
-
 @never_cache
-
 def search1(req):
         if 'admin_e' in req.session and 'admin_p' in req.session:
           a_data = {
@@ -942,8 +938,6 @@ def search1(req):
         else:
             return redirect('login')      
     
-
-
 @never_cache
 def cross(req):
     if 'admin_e' in req.session and 'admin_p' in req.session:
