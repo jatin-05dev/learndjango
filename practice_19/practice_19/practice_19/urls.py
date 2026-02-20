@@ -20,5 +20,29 @@ from app_19 import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.Sign,name='Sign'),
+    path('home',views.home,name='home'),
+    path('login',views.login,name='login'),
+    path('logout',views.logout,name='logout'),
+    path('forget_password',views.forget_password,name='forget_password'),
+    path('forget',views.forget,name='forget'),
+    path('otp',views.otp,name='otp'),
+    path('newpassword',views.newpassword,name='newpassword'),
+    path('set',views.set,name='set'),
+    path('newpass',views.newpass,name='newpass'),
+    path('addtask',views.addtask,name='addtask'),
+    path('edit/<int:pk>',views.edit,name='edit'),
+    path('deli',views.deli,name='deli'),
+
+
+
+
+
+
+
+
+
+
+
+
 
 ]

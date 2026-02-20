@@ -27,10 +27,10 @@
         <div class="auth-buttons">
           
             {% if not data %}
-                {% comment %} <a href="{% url 'login' %}" class="login">Login</a> {% endcomment %}
-                {% comment %} <a href="{% url 'register' %}" class="register">Register</a> {% endcomment %}
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'Sign' %}" class="register">Register</a>
             {% else %}
-                {% comment %} <a href="{% url 'logout' %}"> logout </a> {% endcomment %}
+                <a href="{% url 'logout' %}"> logout </a>
             {% endif %}
             
         </div>

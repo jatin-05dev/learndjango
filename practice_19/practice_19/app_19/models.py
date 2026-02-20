@@ -36,8 +36,10 @@ class Emp(models.Model):
         if errors:
             raise ValidationError(errors)
      def save(self, *args, **kwargs):
-            self.full_clean()   
+            # self.full_clean()   
 # agar aap clean() ke baad save() override karke usme 
 # full_clean() call karte ho, to Model.objects.create() par validation hoga
             super().save(*args, **kwargs)
 
+class Task(models.Model):
+    task=models.CharField(max_length=20)
