@@ -38,8 +38,8 @@
 
                     <p>{{i.task}}<p>
 
-                    <button type="submit" name="edit"><a href={% url 'edit' pk=i.id %}></a>edit</button>
-                    <button type="submit" name="delete"><a href={% url 'deli' %}></a>Delete</button>
+                    <button type="submit" name="edit"><a href={% url 'edit' pk=i.id %}>edit</a></button>
+                    <a href={% url 'deli' pk=i.id %}>del</a>
 
              
             </li>

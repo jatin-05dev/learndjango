@@ -31,7 +31,9 @@ urlpatterns = [
     path('newpass',views.newpass,name='newpass'),
     path('addtask',views.addtask,name='addtask'),
     path('edit/<int:pk>',views.edit,name='edit'),
-    path('deli',views.deli,name='deli'),
+    path('deli/<int:pk>',views.deli,name='deli'),
+    path('edi/<int:pk>',views.edi,name='edi'),
+
 
 
 

@@ -134,11 +134,35 @@ def edit(req,pk):
       if 'id' in req.session:
         uid=req.session.get('id')
         userid=Emp.objects.get(id=uid) 
-        data1=Task.objects.all()
-        t=Task.objects.get(id=pk)
-        t.task
-        return render(req,'home.html',{'data1':data1,'data':userid})
+        data1=Task.objects.get(id=pk)
+        return render(req,'edit.html',{'data1':data1,'data':userid})
 
-def deli(req):
-    pass
+def deli(req,pk):
+    t=Task.objects.get(id=pk)
+    t.delete()
+    data1=Task.objects.all()
+    return render(req,'home.html',{'data1':data1})
 
+
+# def edi(req,pk):
+#     if req.method=='POST':
+#         t=req.POST.get('taskk')
+#         data1=Task.objects.get(id=pk)
+#         data1.task=t
+#         data1.save()
+#         return render(req,'home.html')
+  
+#     return render(req,'home.html')
+    
+        
+def edi(req,pk):
+    if req.method == "POST":
+        t = req.POST.get('taskk')
+
+        task = Task.objects.get(id=pk)
+        task.task = t
+        task.save()
+
+        return redirect('home')   # 🔥 redirect use karo
+
+    return redirect('home')
