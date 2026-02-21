@@ -12,6 +12,6 @@ class Employee(models.Model):
     mobile = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
     course = models.CharField(max_length=50)
-    dep_data = models.ForeignKey(Department,on_delete=models.CASCADE)
+    dep_data = models.ForeignKey(Department,on_delete=models.CASCADE,related_name='puju')
     def __str__(self):
         return self.name
