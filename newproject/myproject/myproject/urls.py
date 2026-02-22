@@ -84,6 +84,8 @@ urlpatterns = [
     path("search1/",views.search1,name="search1"),
     path("cross/",views.cross,name="cross"),
     path("cemployees/",views.cemployees,name="cemployees"),
+    path("lo/",views.lo,name="lo"),
+
 
 
 

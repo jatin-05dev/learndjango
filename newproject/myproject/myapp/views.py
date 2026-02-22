@@ -969,3 +969,5 @@ def cemployees(req):
 
 
     
+def lo(req):
+    return render(req,'l.html')
