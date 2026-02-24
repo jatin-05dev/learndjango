@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('listt',views.listt,name='listt'),
     path('detail/<int:pk>/',views.detail,name='detail'),
+    path('data/',views.data), 
+            
 
 ]
