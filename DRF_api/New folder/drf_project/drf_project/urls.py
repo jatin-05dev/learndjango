@@ -20,6 +20,6 @@ from drf_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('listt',views.listt),
-    path('detail/<int:pk>',views.detail)
+    path('detail/<int:pk>/',views.detail)
 
 ]
