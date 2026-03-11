@@ -1,6 +1,8 @@
-from myapp.views import UserViewSet
-from rest_framework.routers import DefaultRouter
+# from myapp.views import UserViewSet,OfficerViewSet
+# from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
-urlpatterns = router.urls
+# router = DefaultRouter()
+# router.register(r'users', UserViewSet, basename='user')
+# router.register(r'officer', OfficerViewSet, basename='officer')
+# urlpatterns = router.urls
+
