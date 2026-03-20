@@ -25,6 +25,9 @@ urlpatterns = [
     path('save/<int:pk>/',save,name='save'),
     path('mere_cart/',mere_cart,name='mere_cart'),
     path('delete-cart/<int:id>/', delete_cart_item, name='delete_cart_item'),
+    path("payment/",payment,name='payment'),
+    path('payment-status', payment_status, name='payment-status')
+
 
 
 
