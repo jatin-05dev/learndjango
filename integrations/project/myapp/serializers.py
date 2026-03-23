@@ -1,19 +1,7 @@
 from rest_framework import serializers
-from .models import Booking
+from .models import Student
 
-
-class BookingSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Booking
-        fields = [
-            "id",
-            "name2",
-            "email2",
-            "phone2",
-            "adventure",
-            "date",
-            "persons",
-            "payment",
-            "price",
-            "message"
-        ]
+        model = Student
+        fields = '__all__'
