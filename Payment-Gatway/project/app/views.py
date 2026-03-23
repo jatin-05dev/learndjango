@@ -134,6 +134,7 @@ def deletecart(request,pk):
     print(alldata)
     return render(request,'app/cart.html',{'key':alldata,'amount':total})
 
+
 def payment(request):
     global payment
     if request.method=="POST":
