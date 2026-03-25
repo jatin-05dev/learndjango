@@ -1,0 +1,75 @@
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+/* LOGIN */
+.login-box {
+  width: 300px;
+  margin: 100px auto;
+  text-align: center;
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.login-box input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.login-box button {
+  padding: 8px 12px;
+}
+
+/* MAIN */
+.admin-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* FORM */
+.form-box {
+  width: 30%;
+  background: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
+.form-box input {
+  width: 95%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+.form-box button {
+  margin-top: 5px;
+  padding: 8px;
+  width: 100%;
+}
+
+/* TABLE */
+.table-box {
+  width: 70%;
+  background: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}

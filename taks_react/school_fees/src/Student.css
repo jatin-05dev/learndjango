@@ -1,0 +1,53 @@
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+.student-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* LOGIN BOX */
+.login-box {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.login-box input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.login-box button {
+  padding: 8px 12px;
+  background: blue;
+  color: white;
+  border: none;
+}
+
+/* DETAILS */
+.details-box {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.details-box button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+hr {
+  margin: 15px 0;
+}
